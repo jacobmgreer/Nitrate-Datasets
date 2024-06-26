@@ -1,6 +1,4 @@
 
-dir.create(file.path("json"), showWarnings = FALSE)
-
 ### SPARQL Query all P345 // IMDb Property
 # https://w.wiki/A7vP
 query <- URLencode(str_squish(str_replace_all(read_file("SPARQL/films/alternate IDs/wd_imdb.sparql"), "[\r\n]" , " ")))

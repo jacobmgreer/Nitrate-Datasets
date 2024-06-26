@@ -1,6 +1,8 @@
 name: SPARQL Queries Nightly
 on: [workflow_dispatch]
 
+## pak::local_install_dev_deps(upgrade = TRUE)
+
 jobs:
   generate-data:
     runs-on: ubuntu-latest
@@ -13,11 +15,11 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
-          pak::local_install_dev_deps(upgrade = TRUE)
           pak::pkg_install("stringr")
           pak::pkg_install("jsonlite")
           pak::pkg_install("readr")
           pak::pkg_install("dplyr")
+          pak::pkg_install("tidyr")
         shell: Rscript {0}
 
       - name: SPARQL
