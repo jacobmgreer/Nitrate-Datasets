@@ -1,4 +1,0 @@
-SELECT DISTINCT ?item ?value ?valueLabel WHERE {
-  ?item wdt:P57 ?value.
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-}
