@@ -1,4 +1,0 @@
-SELECT ?item ?value ?instance_of WHERE {
-  ?item wdt:P345 ?value.
-  OPTIONAL { ?item wdt:P31 ?instance_of. }
-}
