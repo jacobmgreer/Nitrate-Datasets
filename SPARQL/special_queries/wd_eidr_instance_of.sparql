@@ -1,0 +1,5 @@
+SELECT ?item ?value ?instance_ofLabel WHERE {
+  ?item wdt:P2704 ?value.
+  OPTIONAL { ?item wdt:P31 ?instance_of. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}

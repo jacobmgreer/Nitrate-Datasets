@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item ?altLabel WHERE {
+  ?item (wdt:P106/(wdt:P279*)) wd:Q33999.
+  ?item skos:altLabel ?altLabel.
+}
