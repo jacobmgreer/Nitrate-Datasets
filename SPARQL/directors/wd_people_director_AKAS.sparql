@@ -1,0 +1,7 @@
+SELECT DISTINCT ?item ?itemLabel ?imdb (GROUP_CONCAT(DISTINCT(?altLabel); separator = " || ") AS ?altLabel_list) WHERE {
+  ?item wdt:P106 wd:Q2526255 .
+  OPTIONAL { ?item skos:altLabel ?altLabel }
+  OPTIONAL { ?item wdt:P345 ?imdb }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?item ?itemLabel ?imdb

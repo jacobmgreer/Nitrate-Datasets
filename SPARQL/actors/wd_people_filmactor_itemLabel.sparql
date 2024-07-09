@@ -1,0 +1,4 @@
+SELECT DISTINCT ?item (str(?label) AS ?label_lexical) WHERE {
+  ?item wdt:P106 wd:Q10800557.
+  ?item rdfs:label ?label.
+}
