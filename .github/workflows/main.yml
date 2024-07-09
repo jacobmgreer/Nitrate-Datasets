@@ -1,8 +1,6 @@
 name: SPARQL Queries Nightly
 on: [workflow_dispatch]
 
-## pak::local_install_dev_deps(upgrade = TRUE)
-
 jobs:
   generate-data:
     runs-on: ubuntu-latest
