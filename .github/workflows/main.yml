@@ -1,6 +1,4 @@
 name: SPARQL Queries Nightly
-
-name: Cat Walks About the Gallery
 on:
   schedule:
     - cron: "0 3 * * *"
