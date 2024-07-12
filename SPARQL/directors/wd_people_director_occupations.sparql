@@ -1,9 +1,0 @@
-SELECT DISTINCT ?item (GROUP_CONCAT(?occupationLabel; SEPARATOR = " || ") AS ?occupations) WHERE {
-  ?item wdt:P106 wd:Q2526255.
-  ?item wdt:P106 ?occupation.
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en".
-    ?occupation rdfs:label ?occupationLabel.
-  }
-}
-GROUP BY ?item

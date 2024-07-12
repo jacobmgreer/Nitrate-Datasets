@@ -36,16 +36,6 @@ tryCatch({
     wd_imdb_event_instance, 
     file = "datasets/event/wd_imdb_event_instance.rds")
   
-  wd_imdb_people <-
-    wd_imdb %>%
-    filter(grepl("^nm", imdb))
-  
-  # write_csv(wd_imdb_people, "datasets/people/wd_imdb_people.csv")
-  saveRDS(
-    wd_imdb_people, 
-    file = "datasets/people/wd_imdb_people.rds"
-  )
-  
   wd_imdb_films <-
     wd_imdb %>%
     filter(grepl("^tt", imdb)) %>%
