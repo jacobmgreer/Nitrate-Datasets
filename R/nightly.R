@@ -14,6 +14,6 @@ source("R/S3 - AltID datasets.R")
 
 source("R/S4 - Film-Profession gender.R")
 source("R/S5 - Film-Profession AKAS.R")
-source("R/S6 - Filmmakers.R")
+source("R/S6 - Pull Film Lists.R")
 
 unlink("json", recursive = TRUE, force = TRUE)
