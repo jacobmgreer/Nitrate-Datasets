@@ -6,6 +6,7 @@ download.file(
 wd_filmmakers <- 
   jsonlite::fromJSON("json/wd_people_filmmaking.json")$results$bindings %>%
   reframe(
-    QID = basename(item$value))
+    QID = basename(item$value),
+    updated = date$value)
 
 saveRDS(wd_filmmakers, file = "datasets/people/wd_filmmakers.rds")
