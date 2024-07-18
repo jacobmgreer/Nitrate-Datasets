@@ -3,7 +3,8 @@ tryCatch({
     jsonlite::fromJSON("json/wd_imdb.json")$results$bindings %>%
     reframe(
       QID = basename(item$value),
-      imdb = value$value)
+      imdb = imdb$value,
+      updated = date$value)
   
   review_imdb <-
     wd_imdb %>%
