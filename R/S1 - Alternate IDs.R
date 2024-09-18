@@ -17,7 +17,7 @@ tryCatch({
 
 tryCatch({
   ### SPARQL Query P4947 // TMDb Movie
-  query <- URLencode(str_squish(str_replace_all(read_file("SPARQL/films/alternate IDs/wd_imdb.sparql"), "[\r\n]" , " ")))
+  query <- URLencode(str_squish(str_replace_all(read_file("SPARQL/films/alternate IDs/wd_tmdb.sparql"), "[\r\n]" , " ")))
   download.file(
     url = paste0("https://query.wikidata.org/sparql?query=", query, "&format=json"),
     destfile = "json/wd_tmdb_movie.json")
