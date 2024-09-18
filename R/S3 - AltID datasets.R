@@ -31,7 +31,7 @@ tryCatch({
       updated = date$value)
     
   saveRDS(
-    wd_tmdb_person, 
+    wd_tmdb_movie, 
     file = "datasets/film/wd_tmdb.rds"
   )
   
