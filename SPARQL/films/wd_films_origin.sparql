@@ -1,0 +1,5 @@
+SELECT DISTINCT ?item ?origin ?originLabel WHERE {
+  ?item wdt:P31 wd:Q11424;
+    wdt:P495 ?origin.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
