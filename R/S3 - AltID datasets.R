@@ -70,12 +70,25 @@ tryCatch({
     wd_tcm, 
     file = "datasets/film/wd_tcm.rds"
   )
+
+  wd_tmdbparty <- 
+    jsonlite::fromJSON("json/wd_tmdb_companies.json")$results$bindings %>%
+    reframe(
+      QID = basename(item$value),
+      tmdbparty = value$value,
+      updated = date$value)
+  
+  saveRDS(
+    wd_tmdbparty, 
+    file = "datasets/companies/wd_tmdbparty.rds"
+  )
   
   wd_eidrparty <- 
     jsonlite::fromJSON("json/wd_eidrparty.json")$results$bindings %>%
     reframe(
       QID = basename(item$value),
-      eidrparty = value$value)
+      eidrparty = value$value,
+      updated = date$value)
   
   # write_csv(wd_eidrparty, "datasets/companies/wd_eidrparty.csv")
   saveRDS(

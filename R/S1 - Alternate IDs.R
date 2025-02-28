@@ -76,3 +76,12 @@ tryCatch({
     url = paste0("https://query.wikidata.org/sparql?query=", query, "&format=json"),
     destfile = "json/wd_filmfreeway.json")
 }, error = function(err){})
+
+tryCatch({
+  ### SPARQL Query, TMDb Company ID P11806
+  # https://w.wiki/DEfo
+  query <- URLencode(str_squish(str_replace_all(read_file("SPARQL/companies/wd_tmdbparty.sparql"), "[\r\n]" , " ")))
+  download.file(
+    url = paste0("https://query.wikidata.org/sparql?query=", query, "&format=json"),
+    destfile = "json/wd_tmdb_companies.json")
+}, error = function(err){})

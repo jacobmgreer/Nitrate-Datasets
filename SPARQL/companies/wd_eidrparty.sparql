@@ -1,1 +1,3 @@
-SELECT DISTINCT ?item ?value WHERE { ?item wdt:P12142 ?value. }
+SELECT DISTINCT ?item ?value ?date WHERE { 
+    ?item wdt:P12142 ?value;
+    schema:dateModified ?date. }
