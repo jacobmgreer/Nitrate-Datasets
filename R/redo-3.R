@@ -7,7 +7,7 @@ files <-
   )
 
 for (i in files) {
-  filepath = str_replace(str_replace(i, "json", "datasets"), ".json", ".parquet")
+  filepath = str_replace(str_replace(i, "json/", "datasets/"), ".json", ".parquet")
   tryCatch({
     write_parquet(
       x = 
