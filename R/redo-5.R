@@ -6,11 +6,6 @@ tryCatch({
       value = value$value,
       updated = date$value
     )
-  
-  write_parquet(
-    x = wd_imdb, 
-    sink = "datasets/wd_imdb.parquet"
-  )
 
   imdb_review  <-
     wd_imdb %>%
