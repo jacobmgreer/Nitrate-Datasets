@@ -12,7 +12,6 @@ tryCatch({
     sink = "datasets/wd_imdb.parquet"
   )
 
-
   imdb_review  <-
     wd_imdb %>%
     mutate(first = substr(value, 1, 2)) %>%
@@ -31,8 +30,8 @@ tryCatch({
 
   wd_imdb_event <-
     wd_imdb %>%
-    filter(grepl("^ev", imdb)) %>%
-    filter(!grepl("/", imdb))
+    filter(grepl("^ev", value)) %>%
+    filter(!grepl("/", value))
   
   write_parquet(
     x = wd_imdb_event, 
@@ -40,8 +39,8 @@ tryCatch({
   
   wd_imdb_event_instance <-
     wd_imdb %>%
-    filter(grepl("^ev", imdb)) %>%
-    filter(grepl("/", imdb))
+    filter(grepl("^ev", value)) %>%
+    filter(grepl("/", value))
   
   write_parquet(
     x = wd_imdb_event_instance, 
@@ -49,8 +48,8 @@ tryCatch({
   
   wd_imdb_films <-
     wd_imdb %>%
-    filter(grepl("^tt", imdb)) %>%
-    filter(!grepl("/", imdb))
+    filter(grepl("^tt", value)) %>%
+    filter(!grepl("/", value))
   
   write_parquet(
     x = wd_imdb_films, 
@@ -58,7 +57,7 @@ tryCatch({
 
   wd_imdb_people <-
     wd_imdb %>%
-    filter(grepl("^nm", imdb))
+    filter(grepl("^nm", value))
   
   write_parquet(
     x = wd_imdb_people, 
@@ -66,9 +65,10 @@ tryCatch({
   
   wd_imdb_companies <-
     wd_imdb %>%
-    filter(grepl("^co", imdb))
+    filter(grepl("^co", value))
   
   write_parquet(
     x = wd_imdb_companies, 
     sink = "datasets/imdb/wd_imdb_companies.parquet")
+  
 }, error = function(err){})
