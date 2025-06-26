@@ -1,0 +1,39 @@
+name: SPARQL Queries Nightly
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  generate-data:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 2
+          packages: |
+            any::tidyverse
+            any::arrow
+            any::jsonlite
+      - name: SPARQL
+        run: Rscript R/nightly.R
+      - name: Commit files
+        run: |
+          git config --local user.email "jacobmgreer@gmail.com"
+          git config --local user.name "Jacob Greer"
+          git add --all
+          git commit -am "add data"
+          git push 
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2.0.6
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 14
+          keep_minimum_runs: 6
