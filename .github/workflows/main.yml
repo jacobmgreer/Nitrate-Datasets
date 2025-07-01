@@ -46,7 +46,9 @@ jobs:
                 ref: `tags/${tag}`
               });
             } catch (e) {
-              // Ignore if tag does not exist
+              if (!String(e).includes('Reference does not exist')) {
+                throw e;
+              }
             }
             // Create the tag at the current commit
             await github.rest.git.createRef({
@@ -99,7 +101,7 @@ jobs:
       - name: Delete old workflow runs
         uses: Mattraks/delete-workflow-runs@v2.0.6
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           retain_days: 7
           keep_minimum_runs: 3
