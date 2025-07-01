@@ -13,13 +13,13 @@ tryCatch({
     dplyr::count(first) %>%
     arrange(desc(n))
 
-  write_csv(imdb_review, "imdb_review.csv")
+  write_csv(imdb_review, "datasets/imdb_review.csv")
 
   imdb_awkward <-
     wd_imdb %>%
     filter(!substr(value, 1, 2) %in% c("tt", "nm", "ev", "co", "ch", "li", "ni"))
   
-  write_csv(imdb_awkward, "imdb_awkward.csv")
+  write_csv(imdb_awkward, "datasets/imdb_awkward.csv")
 
   dir.create("datasets/imdb", recursive = T, showWarnings = F)
 
