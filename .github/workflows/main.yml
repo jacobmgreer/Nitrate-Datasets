@@ -34,9 +34,9 @@ jobs:
         id: tag
         run: |
           DATE=$(date +'%Y-%m-%d')
-          TAG="nightly-${DATE}"
+          TAG="nightly-dataset-${DATE}"
           echo "tag_name=${TAG}" >> $GITHUB_OUTPUT
-          echo "release_name=Nightly Release - ${DATE}" >> $GITHUB_OUTPUT
+          echo "release_name=Nightly Dataset - ${DATE}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
