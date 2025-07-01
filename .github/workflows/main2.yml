@@ -28,10 +28,7 @@ jobs:
       - name: Archive results
         run: |
           mkdir -p nightly_output
-          cp -r data/* nightly_output/ 2>/dev/null || true
-          cp -r output/* nightly_output/ 2>/dev/null || true
-          cp -r results/* nightly_output/ 2>/dev/null || true
-          # Add additional directories or files as necessary
+          cp -r datasets/* nightly_output/ 2>/dev/null || true
 
       - name: Create Release Tag
         id: tag
