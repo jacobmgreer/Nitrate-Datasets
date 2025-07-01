@@ -57,10 +57,62 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Tag latest release as 🍿
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const tag = "🍿";
+            const sha = process.env.GITHUB_SHA;
+            // Delete tag if exists
+            try {
+              await github.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `tags/${tag}`
+              });
+            } catch (e) {
+              // Ignore if tag does not exist
+            }
+            // Create the tag at the current commit
+            await github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/${tag}`,
+              sha: sha
+            });
+            // Create or update the release with the tag 🍿
+            const releases = await github.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const release = releases.data.find(r => r.tag_name === tag);
+            if (release) {
+              await github.repos.updateRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.id,
+                tag_name: tag,
+                name: "🍿 Release",
+                draft: false,
+                prerelease: false
+              });
+            } else {
+              await github.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: tag,
+                name: "🍿 Release",
+                draft: false,
+                prerelease: false
+              });
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Delete old workflow runs
         uses: Mattraks/delete-workflow-runs@v2.0.6
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          retain_days: 14
-          keep_minimum_runs: 6
+          retain_days: 7
+          keep_minimum_runs: 3
