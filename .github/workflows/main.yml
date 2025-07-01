@@ -12,9 +12,11 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
@@ -57,7 +59,7 @@ jobs:
               ref: `refs/tags/${tag}`,
               sha: sha
             });
-            // Create or update the release with the tag
+            // Fetch releases after tag creation
             const releases = await github.rest.repos.listReleases({
               owner: context.repo.owner,
               repo: context.repo.repo
