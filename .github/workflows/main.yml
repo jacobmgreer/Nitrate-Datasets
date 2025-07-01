@@ -31,12 +31,12 @@ jobs:
           mkdir -p nightly_output
           cp -r datasets/* nightly_output/ 2>/dev/null || true
 
-      - name: Create/Update 🍿 Release tag and release
+      - name: Create/Update tag and release
         id: popcorn_release
         uses: actions/github-script@v7
         with:
           script: |
-            const tag = "🍿";
+            const tag = "nightly";
             const sha = process.env.GITHUB_SHA;
             // Delete tag if exists
             try {
@@ -55,7 +55,7 @@ jobs:
               ref: `refs/tags/${tag}`,
               sha: sha
             });
-            // Create or update the release with the tag 🍿
+            // Create or update the release with the tag
             const releases = await github.repos.listReleases({
               owner: context.repo.owner,
               repo: context.repo.repo
@@ -68,7 +68,7 @@ jobs:
                 repo: context.repo.repo,
                 release_id: release.id,
                 tag_name: tag,
-                name: "🍿 Release",
+                name: "Nightly Dataset",
                 draft: false,
                 prerelease: false
               });
@@ -78,7 +78,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 tag_name: tag,
-                name: "🍿 Release",
+                name: "Nightly Dataset",
                 draft: false,
                 prerelease: false
               });
@@ -88,10 +88,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Results to 🍿 Release
+      - name: Upload Results
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "🍿"
+          tag_name: "nightly"
           files: nightly_output/**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
