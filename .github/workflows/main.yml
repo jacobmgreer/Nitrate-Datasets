@@ -25,16 +25,11 @@ jobs:
       - name: Run SPARQL script
         run: Rscript R/nightly.R
 
-      - name: Archive results
-        run: |
-          mkdir -p nightly_output
-          cp -r datasets/* nightly_output/ 2>/dev/null || true
-
       - name: Create or update nightly release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: nightly
           name: Nightly Dataset
-          files: nightly_output/**
+          files: datasets/**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
