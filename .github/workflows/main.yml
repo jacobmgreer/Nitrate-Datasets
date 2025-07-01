@@ -31,62 +31,62 @@ jobs:
           mkdir -p nightly_output
           cp -r datasets/* nightly_output/ 2>/dev/null || true
 
-- name: Create/Update tag and release
-  id: popcorn_release
-  uses: actions/github-script@v7
-  with:
-    script: |
-      const tag = "nightly";
-      const sha = process.env.GITHUB_SHA;
-      // Delete tag if exists
-      try {
-        await github.rest.git.deleteRef({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          ref: `tags/${tag}`
-        });
-      } catch (e) {
-        // Ignore if tag does not exist
-      }
-      // Create the tag at the current commit
-      await github.rest.git.createRef({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        ref: `refs/tags/${tag}`,
-        sha: sha
-      });
-      // Create or update the release with the tag
-      const releases = await github.rest.repos.listReleases({
-        owner: context.repo.owner,
-        repo: context.repo.repo
-      });
-      const release = releases.data.find(r => r.tag_name === tag);
-      let release_id;
-      if (release) {
-        const updated = await github.rest.repos.updateRelease({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          release_id: release.id,
-          tag_name: tag,
-          name: "Nightly Dataset",
-          draft: false,
-          prerelease: false
-        });
-        release_id = updated.data.id;
-      } else {
-        const created = await github.rest.repos.createRelease({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          tag_name: tag,
-          name: "Nightly Dataset",
-          draft: false,
-          prerelease: false
-        });
-        release_id = created.data.id;
-      }
-      core.setOutput("release_id", release_id);
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create/Update tag and release
+        id: popcorn_release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const tag = "nightly";
+            const sha = process.env.GITHUB_SHA;
+            // Delete tag if exists
+            try {
+              await github.rest.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `tags/${tag}`
+              });
+            } catch (e) {
+              // Ignore if tag does not exist
+            }
+            // Create the tag at the current commit
+            await github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/${tag}`,
+              sha: sha
+            });
+            // Create or update the release with the tag
+            const releases = await github.rest.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const release = releases.data.find(r => r.tag_name === tag);
+            let release_id;
+            if (release) {
+              const updated = await github.rest.repos.updateRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: release.id,
+                tag_name: tag,
+                name: "Nightly Dataset",
+                draft: false,
+                prerelease: false
+              });
+              release_id = updated.data.id;
+            } else {
+              const created = await github.rest.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: tag,
+                name: "Nightly Dataset",
+                draft: false,
+                prerelease: false
+              });
+              release_id = created.data.id;
+            }
+            core.setOutput("release_id", release_id);
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Results
         uses: softprops/action-gh-release@v2
